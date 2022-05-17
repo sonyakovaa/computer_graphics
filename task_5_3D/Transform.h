@@ -1,0 +1,43 @@
+#pragma once
+#include "Matrix.h"
+#include <math.h>
+
+mat4 translate(float Tx, float Ty, float Tz) {
+	mat4 * res = new mat4(1.f); // создали единичную матрицу
+	(*res)[0][3] = Tx; // помен€ли
+	(*res)[1][3] = Ty; // значени€ в последнем столбце
+	(*res)[2][3] = Tz; //
+	return *res;
+}
+
+
+//ћатрицa маштабировани€
+mat4 scale(float Sx, float Sy, float Sz) {
+	mat4 * res = new mat4(1.f); // создали единичную матрицу
+	(*res)[0][0] = Sx; // помен€ли
+	(*res)[1][1] = Sy; // значени€ на главной диагонали
+	(*res)[2][2] = Sz; //
+	return *res;
+}
+
+//Kогда Sx = Sy = S
+mat3 scale(float S) {
+	return scale(S, S, S);
+}
+
+mat3 mirrorX() {
+	return scale(-1, 1, 1);
+}
+mat3 mirrorY() {
+	return scale(1, -1, 1);
+}
+
+//ѕоворот
+mat3 rotate(float theta) {
+	mat3* res = new mat3(1.f); // создали единичную матрицу
+	(*res)[0][0] = (*res)[1][1] = (float)cos(theta); // заполнили главную диагональ
+	(*res)[0][1] = (float)sin(theta); // синус в первой строке (с плюсом)
+	(*res)[1][0] = -(*res)[0][1]; // синус во второй строке (с минусом)
+	return *res;
+}
+
